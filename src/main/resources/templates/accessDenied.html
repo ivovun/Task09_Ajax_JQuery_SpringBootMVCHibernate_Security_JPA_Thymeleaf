@@ -1,0 +1,16 @@
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+    <title>AccessDenied page</title>
+</head>
+<body>
+
+
+<div class="container">
+    <h3>Dear <strong th:text="${loggedinuser}+ ', You are not authorized to access this page.'"></strong>
+        <span class="floatRight"><a href="/logout"/>Logout</a></span>
+    </h3>
+</div>
+
+</body>
+</html>

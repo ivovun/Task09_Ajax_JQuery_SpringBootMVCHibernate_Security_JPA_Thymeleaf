@@ -1,0 +1,33 @@
+<!-- Email -->
+<div class="form-group">
+    <label for="email">Email :</label>
+    <input type="text" th:field="*{email}" placeholder="email (*)" class="form-control"
+           th:errorclass="fieldError" th:id="${'email'+{user.id}}"/>
+</div>
+
+<!-- SSO ID  -->
+<div class="form-group">
+    <label for="ssoId">Login :</label>
+    <!--                <input type="text" th:field="*{ssoId}"  placeholder="Login (*)" class="form-control ssoId"  id="ssoId"/>-->
+    <input type="text" th:field="${user.ssoId}"  placeholder="Login (*)" class="form-control ssoId"  th:id="${'ssoId'+{user.id}}"/>
+</div>
+
+<!-- Password -->
+<div class="form-group">
+    <label for="password">Password :</label>
+    <input type="password" th:field="*{password}" placeholder="password (*)" class="form-control"
+           th:errorclass="fieldError" th:id="${'password'+{user.id}}"/>
+</div>
+
+User roles (checkboxes):
+
+<div class="row">
+    <div class="col-md-4 "></div>
+    <div class="col-md-4" style="text-align:left">
+        <div th:each="role : ${roles}" class="checkbox">
+            <input type="checkbox"  th:id="${{role}}" th:class="${user.roleEnabled(role.id)}"  th:value="${{role}}"  th:field="*{userProfiles}"/>
+            <label type="checkbox" th:for="${{role}}"  th:text="${role.type}">Role</label>
+        </div>
+    </div>
+    <div class="col-md-4 "></div>
+</div>

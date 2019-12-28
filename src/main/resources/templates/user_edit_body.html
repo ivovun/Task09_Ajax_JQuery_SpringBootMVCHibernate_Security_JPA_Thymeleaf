@@ -1,0 +1,39 @@
+                                                                        <div class="row   justify-content-center align-items-center">
+                                                                            <div class="col-12 col-md-8 col-lg-8">
+
+                                                                                <!-- Form -->
+
+                                                                                <form class="form-example" th:action="@{/admin/save}"  method="post" th:object="${user}" >
+
+                                                                                    <!-- Input fields -->
+                                                                                    <br/>
+                                                                                    <br/>
+                                                                                    <!-- Add INVISIBLE form field to handle update !!!! -->
+                                                                                    <input   type="number"  th:value="*{id}" style="display: none"  th:field="*{id}" name="id"  th:id="${'id'+{user.id}}"/>
+
+                                                                                    <!--ID -->
+                                                                                    <div class="form-group">
+                                                                                        <label for="ids">id :</label>
+                                                                                        <input type="number" class="form-control username" disabled th:value="${user.id}"  />
+                                                                                    </div>
+
+                                                                                    <div th:replace="/user_edit_form_fields"></div>
+
+
+                                                                                    <!-- Register Button -->
+                                                                                    <div style="margin-top: 10px" class="form-group">
+                                                                                        <div class="col-sm-10 col-md-offset-6 controls">
+                                                                                            <button    type="submit" class="btn btn-primary">Edit user</button>
+                                                                                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+
+                                                                                        </div>
+                                                                                    </div>
+
+                                                                                    <!-- End input fields -->
+
+                                                                                </form>
+
+                                                                                <!-- Form end -->
+
+                                                                            </div>
+                                                                        </div>
