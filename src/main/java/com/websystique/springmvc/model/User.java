@@ -58,6 +58,16 @@ public class User implements UserDetails {
              inverseJoinColumns = { @JoinColumn(name = "USER_PROFILE_ID") })
 	private Set<UserProfile> userProfiles = new HashSet<>();
 
+	private String rolesDescription;
+
+	public String getRolesDescription() {
+		return rolesDescription();
+	}
+
+	public void setRolesDescription(String rolesDescription) {
+		this.rolesDescription = rolesDescription;
+	}
+
 	public Long getId() {
 		return id;
 	}
