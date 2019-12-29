@@ -28,7 +28,8 @@ public class AppConfig implements WebMvcConfigurer {
 	public AppConfig(RoleToUserProfileConverter roleToUserProfileConverter) {
 	    this.roleToUserProfileConverter = roleToUserProfileConverter;
     }
-    
+
+
     /**
      * Configure Converter to be used.
      * In our example, we need a converter to convert string values[Roles] to UserProfiles in registration.jsp

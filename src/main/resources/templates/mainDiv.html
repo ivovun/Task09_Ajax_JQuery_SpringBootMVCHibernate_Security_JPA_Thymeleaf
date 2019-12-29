@@ -34,52 +34,7 @@
                                             </tr>
                                             </thead>
 
-                                            <tbody>
-
-                                             <tr th:id="${'user'+'-'+{user.id}}" th:each="user : ${users}"> <!-- ============NEW ROW ============== -->
-
-                                                <td th:class="${'userfield'+{user.id}}" th:text="${user.id}"/>
-                                                <td th:class="${'userfield'+{user.id}}" th:text="${user.rolesDescription()}"/>
-                                                <td th:class="${'userfield'+{user.id}}" th:text="${user.ssoId}"/>
-                                                <td th:class="${'userfield'+{user.id}}" th:text="${user.password}"/>
-                                                <td th:class="${'userfield'+{user.id}}" th:text="${user.email}"/>
-
-                                                <td>
-                                                    <!-- Button to Open the Modal -->
-
-                                                    <a th:href="@{/admin/editUser(ssoId=${user.ssoId})}" th:data-user-id="${user.id}" class="btn btn-info btn-sm"
-                                                       data-toggle="modal" data-target="#editModal" th:attrappend="data-target=${user.id}">
-                                                        Update
-                                                    </a>
-
-<!-------------------------------------------------------------------------------The Modal ------------------ -->
-                                                    <div class="modal fade" id="editModal" th:attrappend="id=${user.id}">
-                                                        <div class="modal-dialog">
-                                                            <div class="modal-content">
-
-                                                                <!-- Modal body -->
-
-                                                                <div class="modal-body">
-                                                                    <div th:replace="/user_edit_body"></div>
-                                                                </div>
-
-                                                                <!-- Modal body END -->
-
-                                                            </div>
-                                                        </div>
-                                                    </div>
-<!-------------------------------------------------------------------------------The Modal END ------------------ -->
-
-                                                    <!-- Add "delete" button/link -->
-                                                    <a th:href="@{/admin/delete(ssoId=${user.ssoId})}"
-                                                       class="btn btn-danger btn-sm"
-                                                       onclick="return confirm('Are you sure you want to delete this item?');">
-                                                        Delete
-                                                    </a>
-                                                </td>
-                                            </tr>
-                                            </tbody>
-                                        </table>
+                                         </table>
                                     </div>
                                 </div>
 

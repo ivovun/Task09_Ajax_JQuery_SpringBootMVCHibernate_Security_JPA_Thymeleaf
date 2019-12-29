@@ -209,34 +209,27 @@
         crossorigin="anonymous"
 ></script>
 
-<script>
+<script type="text/javascript">
 
-    $(document).on('hidden.bs.modal', "", function () {
-        var form = $(this).find('form');
-        form[0].reset();
-    });
+        $(document).ready(function() {
+            $.getJSON('/api/list', function(json) {
+                var tr=[];
+                for (var i = 0; i < json.length; i++) {
+                    tr.push('<tr>');
+                    tr.push('<td>' + json[i].id + '</td>');
+                    // tr.push('<td>' + json[i].rolesDescription() + '</td>');
+                    tr.push('<td>' + json[i].userProfiles + '</td>');
+                    tr.push('<td>' + json[i].ssoId + '</td>');
+                    tr.push('<td>' + json[i].password + '</td>');
+                    tr.push('<td>' + json[i].email + '</td>');
+                    tr.push('<td><button class=\'edit\'>Edit</button>&nbsp;&nbsp;<button class=\'delete\' id=' + json[i].id + '>Delete</button></td>');
 
 
-    $(document).on('show.bs.modal', "", function (e) {
-
-        var userId = $(e.relatedTarget).data('user-id');
-        var cols = $('.userfield' + userId);
-
-        //console.log(userId);
-        //console.log(cols);
-        //console.log($(cols[0]).text());
-        //console.log($(cols[1]).text());
-        //console.log($(cols[2]).text());
-
-        $('#id' + userId).val($(cols[0]).text());
-        $('#ssoId' + userId).val($(cols[2]).text());
-        $('#password' + userId).val($(cols[3]).text());
-        $('#email' + userId).val($(cols[4]).text());
-
-        $(' .THIS_ROLE_IS_ENABLED').prop('checked', true);
-
-    });
-
+                    tr.push('</tr>');
+                }
+                $('table').append($(tr.join('')));
+            });
+        });
 
     $(function () {
         var path = window.location.pathname;
