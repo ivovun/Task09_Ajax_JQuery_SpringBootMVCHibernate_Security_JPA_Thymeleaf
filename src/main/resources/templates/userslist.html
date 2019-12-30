@@ -281,16 +281,6 @@
                 $("#"+json.userProfiles[0].id).prop("checked", true);
                 $("#"+json.userProfiles[1].id).prop("checked", true);
                 $("#"+json.userProfiles[2].id).prop("checked", true);
-
-
-                // var pjs = JSON.parse(json);
-                //
-                // for (x in pjs.userProfiles) {
-                //     console.log(x["id"]);
-                //
-                // }
-
-
             });
         });
 
@@ -308,13 +298,30 @@
         var id       =  $('.edit_invisibleId').val();
         var email    =  $('.edit_email_class').val();
         var ssoId    =  $('.edit_ssoId_class').val();
-        var password =  $('.edit_password_id').val();
+        var password =  $('.edit_password_class').val();
+
+        var arrOfRoles = [];
+        if ($('#1').is(":checked"))
+        {
+            arrOfRoles.push({"id":1,"type":"USER"});
+        }
+
+        if ($('#2').is(":checked"))
+        {
+            arrOfRoles.push({"id":2,"type":"ADMIN"});
+        }
+
+        if ($('#3').is(":checked"))
+        {
+            arrOfRoles.push({"id":3,"type":"DBA"});
+        }
+
 
         $.ajax({
             type: "POST",
             contentType: "application/json; charset=utf-8",
             url: "http://localhost:8080/admin/api/save",
-            data: JSON.stringify({'id': id, 'email':email, 'ssoId':ssoId, 'password':password  }),
+            data: JSON.stringify({'id': id, 'email':email, 'ssoId':ssoId, 'password':password, "userProfiles": arrOfRoles}),
             cache: false,
             success: function(result) {
                 $("#msg").html( "<span style='color: green'>User edit successfully</span>" );
@@ -324,6 +331,8 @@
                 $("#msg").html( "<span style='color: red'>Name is required</span>" );
             }
         });
+
+
     });
 
 

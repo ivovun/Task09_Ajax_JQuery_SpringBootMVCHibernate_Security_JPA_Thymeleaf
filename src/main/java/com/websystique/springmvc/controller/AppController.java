@@ -119,7 +119,7 @@ public class AppController {
      * This method will be called on form submission, handling POST request for
      * updating user in database. It also validates the user input
      */
-    @PostMapping("/admin/save")
+    @PostMapping("/admin1/save")
     public String save(@ModelAttribute("user") User user, BindingResult result, ModelMap model) {
         /*
          * Preferred way to achieve uniqueness of field [sso] should be implementing custom @Unique annotation

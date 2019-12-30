@@ -1,22 +1,19 @@
 <!-- Email -->
 <div class="form-group">
     <label for="email">Email :</label>
-    <input type="text" th:field="*{email}" placeholder="email (*)" class="form-control edit_email_class"
-           th:errorclass="fieldError" />
+    <input type="text"   placeholder="email (*)" class="form-control edit_email_class" id="email" />
 </div>
 
 <!-- SSO ID  -->
 <div class="form-group">
     <label for="ssoId">Login :</label>
-    <!--                <input type="text" th:field="*{ssoId}"  placeholder="Login (*)" class="form-control ssoId"  id="ssoId"/>-->
-    <input type="text" th:field="${user.ssoId}"  placeholder="Login (*)" class="form-control ssoId edit_ssoId_class"  />
+    <input type="text"    placeholder="Login (*)" class="form-control ssoId edit_ssoId_class"  id="ssoId" />
 </div>
 
 <!-- Password -->
 <div class="form-group">
     <label for="password">Password :</label>
-    <input type="password" th:field="*{password}" placeholder="password (*)" class="form-control edit_password_id"
-           th:errorclass="fieldError" />
+    <input type="password"   placeholder="password (*)" class="form-control edit_password_class"  id="password"/>
 </div>
 
 User roles (checkboxes):
@@ -24,10 +21,15 @@ User roles (checkboxes):
 <div class="row">
     <div class="col-md-4 "></div>
     <div class="col-md-4" style="text-align:left">
-        <div th:each="role : ${roles}" class="checkbox">
-            <input type="checkbox"  th:id="${{role}}" th:class="${user.roleEnabled(role.id)}"  th:value="${{role}}"  th:field="*{userProfiles}"/>
-            <label type="checkbox" th:for="${{role}}"  th:text="${role.type}">Role</label>
-        </div>
-    </div>
+        <input type="checkbox"  id="1"     value=1  />
+        <label type="text" for="1"   text="USER">USER</label>
+        <br>
+        <input type="checkbox"  id="2"     value=2  />
+        <label type="text" for="2"   text="ADMIN">ADMIN</label>
+        <br>
+        <input type="checkbox"  id="3"     value=3  />
+        <label type="text" for="3"   text="DBA">DBA</label>
+        <br>
+     </div>
     <div class="col-md-4 "></div>
 </div>
