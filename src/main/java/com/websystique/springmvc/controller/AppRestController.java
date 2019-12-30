@@ -6,9 +6,8 @@ import com.websystique.springmvc.service.UserService;
 import org.springframework.context.MessageSource;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.ui.ModelMap;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -23,17 +22,26 @@ public class AppRestController {
     MessageSource messageSource;
 
     public AppRestController(UserService userService, UserProfileService userProfileService,
-                         MessageSource messageSource) {
+                             MessageSource messageSource) {
         this.userService = userService;
         this.userProfileService = userProfileService;
         this.messageSource = messageSource;
     }
 
-    @GetMapping("/api/list")
+    @GetMapping("/admin/api/list")
     public ResponseEntity<List<User>> getCompanyList() {
         return new ResponseEntity(userService.findAll(), HttpStatus.OK);
     }
 
+    @GetMapping("/admin/api/edit")
+    public ResponseEntity<User> edit(@RequestParam("id") String id, ModelMap model) {
+        return new ResponseEntity(userService.findById(Long.parseLong(id)), HttpStatus.OK);
+    }
 
+    @PostMapping("/admin/api/save")
+    public ResponseEntity<Void> save(@RequestBody User user) {
+        userService.save(user);
+        return new ResponseEntity<>(HttpStatus.OK);
+    }
 
 }

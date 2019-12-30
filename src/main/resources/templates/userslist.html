@@ -139,6 +139,29 @@
 </nav>
 
 <div class="container-fluid h-200">
+
+    <!-- Modal AJAX  -->
+    <div class="modal fade" id="empModal" role="dialog">
+        <div class="modal-dialog">
+
+            <!-- Modal content-->
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <h4 class="modal-title">User Info</h4>
+                </div>
+                <div class="modal-body" id="modal-body-edit">
+                    <div th:replace="/user_edit_body"></div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+
     <div class="row">
 
         <!-- SIDE BAR BEGIN -->
@@ -211,25 +234,87 @@
 
 <script type="text/javascript">
 
-        $(document).ready(function() {
-            $.getJSON('/api/list', function(json) {
-                var tr=[];
-                for (var i = 0; i < json.length; i++) {
-                    tr.push('<tr>');
-                    tr.push('<td>' + json[i].id + '</td>');
-                    // tr.push('<td>' + json[i].rolesDescription() + '</td>');
-                    tr.push('<td>' + json[i].rolesDescription + '</td>');
-                    tr.push('<td>' + json[i].ssoId + '</td>');
-                    tr.push('<td>' + json[i].password + '</td>');
-                    tr.push('<td>' + json[i].email + '</td>');
-                    tr.push('<td><button class=\'edit\'>Edit</button>&nbsp;&nbsp;<button class=\'delete\' id=' + json[i].id + '>Delete</button></td>');
+    $(document).on('hidden.bs.modal', "", function () {
+        var form = $(this).find('form');
+        form[0].reset();
+    });
 
 
-                    tr.push('</tr>');
-                }
-                $('table').append($(tr.join('')));
+    $(document).ready(function () {
+        console.log("!!!!");
+        $.getJSON('http://localhost:8080/admin/api/list', function (json) {
+            var tr = [];
+            for (var i = 0; i < json.length; i++) {
+                tr.push('<tr>');
+                tr.push('<td>' + json[i].id + '</td>');
+                // tr.push('<td>' + json[i].rolesDescription() + '</td>');
+                tr.push('<td>' + json[i].rolesDescription + '</td>');
+                tr.push('<td>' + json[i].ssoId + '</td>');
+                tr.push('<td>' + json[i].password + '</td>');
+                tr.push('<td>' + json[i].email + '</td>');
+                tr.push('<td><button  data-id=' + json[i].id + '  class=\'userinfo\'>EDIT!!!</button>&nbsp;&nbsp;<button class=\'delete\' id=' + json[i].id + '>Delete</button></td>');
+                tr.push('</tr>');
+            }
+            $('table').append($(tr.join('')));
+        });
+
+        $(document).delegate('.userinfo', 'click', function (event) {
+            event.preventDefault();
+
+            var userid = $(this).data('id');
+            console.log("userid = " + userid);
+
+            $.getJSON('http://localhost:8080/admin/api/edit?id=' + userid, function (json) {
+                console.log("json = " + json);
+
+                console.log(JSON.stringify(json));
+
+
+                $(".edit_invisibleId").val(json.id);
+                $(".edit_visibleId_class").val(json.id);
+                $(".edit_email_class").val(json.email);
+                $(".edit_ssoId_class").val(json.ssoId);
+                // $("#edit_password_id").val(json.password);
+
+                $('#empModal').modal('show');
+
+
+
             });
         });
+
+    });
+
+    //{"id":5,"ssoId":"t","password":"$2a$10$vt.2A6inLAaswsuHlGIIXOSEOu7wmuWzP6wUQSMjIbWdbyZDfPJEa","firstName":null,"lastName":null,"email":"t",
+    // "userProfiles":[{"id":3,"type":"DBA","authority":"ROLE_DBA"},{"id":2,"type":"ADMIN","authority":"ROLE_ADMIN"},{"id":1,"type":"USER","authority":"ROLE_USER"}],
+    // "rolesDescription":"dba, admin, user","enabled":true,"username":"t","accountNonExpired":true,"accountNonLocked":true,"credentialsNonExpired":true,
+    // "authorities":[{"id":3,"type":"DBA","authority":"ROLE_DBA"},{"id":2,"type":"ADMIN","authority":"ROLE_ADMIN"},{"id":1,"type":"USER","authority":"ROLE_USER"}]}
+
+    $(document).delegate('#SaveAndClose', 'click', function(event) {
+        event.preventDefault();
+
+        console.log("$(document).delegate('.SaveAndClose', 'click', function(event)");
+        var id       =  $('.edit_invisibleId').val();
+        var email    =  $('.edit_email_class').val();
+        var ssoId    =  $('.edit_ssoId_class').val();
+        var password =  $('.edit_password_id').val();
+
+        $.ajax({
+            type: "POST",
+            contentType: "application/json; charset=utf-8",
+            url: "http://localhost:8080/admin/api/save",
+            data: JSON.stringify({'id': id, 'email':email, 'ssoId':ssoId, 'password':password  }),
+            cache: false,
+            success: function(result) {
+                $("#msg").html( "<span style='color: green'>User edit successfully</span>" );
+                window.setTimeout(function(){location.reload()},1000)
+            },
+            error: function(err) {
+                $("#msg").html( "<span style='color: red'>Name is required</span>" );
+            }
+        });
+    });
+
 
     $(function () {
         var path = window.location.pathname;

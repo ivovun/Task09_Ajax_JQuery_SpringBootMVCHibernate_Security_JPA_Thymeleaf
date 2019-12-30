@@ -1,22 +1,22 @@
 <!-- Email -->
 <div class="form-group">
     <label for="email">Email :</label>
-    <input type="text" th:field="*{email}" placeholder="email (*)" class="form-control"
-           th:errorclass="fieldError" th:id="${'email'+{user.id}}"/>
+    <input type="text" th:field="*{email}" placeholder="email (*)" class="form-control edit_email_class"
+           th:errorclass="fieldError" />
 </div>
 
 <!-- SSO ID  -->
 <div class="form-group">
     <label for="ssoId">Login :</label>
     <!--                <input type="text" th:field="*{ssoId}"  placeholder="Login (*)" class="form-control ssoId"  id="ssoId"/>-->
-    <input type="text" th:field="${user.ssoId}"  placeholder="Login (*)" class="form-control ssoId"  th:id="${'ssoId'+{user.id}}"/>
+    <input type="text" th:field="${user.ssoId}"  placeholder="Login (*)" class="form-control ssoId edit_ssoId_class"  />
 </div>
 
 <!-- Password -->
 <div class="form-group">
     <label for="password">Password :</label>
-    <input type="password" th:field="*{password}" placeholder="password (*)" class="form-control"
-           th:errorclass="fieldError" th:id="${'password'+{user.id}}"/>
+    <input type="password" th:field="*{password}" placeholder="password (*)" class="form-control edit_password_id"
+           th:errorclass="fieldError" />
 </div>
 
 User roles (checkboxes):

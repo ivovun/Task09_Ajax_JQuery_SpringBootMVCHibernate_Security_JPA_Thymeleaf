@@ -9,12 +9,12 @@
                                                                                     <br/>
                                                                                     <br/>
                                                                                     <!-- Add INVISIBLE form field to handle update !!!! -->
-                                                                                    <input   type="number"  th:value="*{id}" style="display: none"  th:field="*{id}" name="id"  th:id="${'id'+{user.id}}"/>
+                                                                                    <input   type="number"  th:value="*{id}" style="display: none"  th:field="*{id}" name="id"  class="edit_invisibleId"/>
 
                                                                                     <!--ID -->
                                                                                     <div class="form-group">
                                                                                         <label for="ids">id :</label>
-                                                                                        <input type="number" class="form-control username" disabled th:value="${user.id}"  />
+                                                                                        <input type="number" class="form-control username edit_visibleId_class" disabled th:value="${user.id}"  />
                                                                                     </div>
 
                                                                                     <div th:replace="/user_edit_form_fields"></div>
@@ -23,7 +23,7 @@
                                                                                     <!-- Register Button -->
                                                                                     <div style="margin-top: 10px" class="form-group">
                                                                                         <div class="col-sm-10 col-md-offset-6 controls">
-                                                                                            <button    type="submit" class="btn btn-primary">Edit user</button>
+                                                                                            <button    type="submit" class="btn btn-primary SaveAndClose"  id="SaveAndClose">Edit user</button>
                                                                                             <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
 
                                                                                         </div>
