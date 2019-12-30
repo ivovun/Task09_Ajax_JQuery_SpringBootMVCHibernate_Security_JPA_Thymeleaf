@@ -1,6 +1,7 @@
 package com.websystique.springmvc.controller;
 
 import com.websystique.springmvc.model.User;
+import com.websystique.springmvc.model.UserProfile;
 import com.websystique.springmvc.service.UserProfileService;
 import com.websystique.springmvc.service.UserService;
 import org.springframework.context.MessageSource;
@@ -29,8 +30,13 @@ public class AppRestController {
     }
 
     @GetMapping("/admin/api/list")
-    public ResponseEntity<List<User>> getCompanyList() {
+    public ResponseEntity<List<User>> getUserList() {
         return new ResponseEntity(userService.findAll(), HttpStatus.OK);
+    }
+
+    @GetMapping("/admin/api/rolelist")
+    public ResponseEntity<List<UserProfile>> getRoleList() {
+        return new ResponseEntity(userProfileService.findAll(), HttpStatus.OK);
     }
 
     @GetMapping("/admin/api/edit")
