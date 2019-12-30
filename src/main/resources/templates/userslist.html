@@ -278,6 +278,17 @@
 
                 $('#empModal').modal('show');
 
+                $("#"+json.userProfiles[0].id).prop("checked", true);
+                $("#"+json.userProfiles[1].id).prop("checked", true);
+                $("#"+json.userProfiles[2].id).prop("checked", true);
+
+
+                // var pjs = JSON.parse(json);
+                //
+                // for (x in pjs.userProfiles) {
+                //     console.log(x["id"]);
+                //
+                // }
 
 
             });
