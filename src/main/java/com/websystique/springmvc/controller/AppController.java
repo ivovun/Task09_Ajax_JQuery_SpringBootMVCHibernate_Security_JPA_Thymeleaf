@@ -7,6 +7,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.MessageSource;
 import org.springframework.security.authentication.AnonymousAuthenticationToken;
 import org.springframework.security.core.Authentication;
@@ -33,6 +34,7 @@ public class AppController {
 
     MessageSource messageSource;
 
+    @Autowired
     public AppController(UserService userService, UserProfileService userProfileService,
                          MessageSource messageSource) {
         this.userService = userService;
@@ -83,7 +85,6 @@ public class AppController {
         model.addAttribute("showAdminPanel", true);
         return "userslist";
     }
-
 
     /**
      * This method handles Access-Denied redirect.

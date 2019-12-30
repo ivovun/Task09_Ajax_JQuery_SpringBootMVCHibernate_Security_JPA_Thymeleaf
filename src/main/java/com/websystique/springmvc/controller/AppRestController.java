@@ -1,9 +1,9 @@
 package com.websystique.springmvc.controller;
 
 import com.websystique.springmvc.model.User;
-import com.websystique.springmvc.model.UserProfile;
 import com.websystique.springmvc.service.UserProfileService;
 import com.websystique.springmvc.service.UserService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.MessageSource;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -15,13 +15,13 @@ import java.util.List;
 @RestController
 @CrossOrigin(origins = "*")
 public class AppRestController {
-
     UserService userService;
 
     UserProfileService userProfileService;
 
     MessageSource messageSource;
 
+    @Autowired
     public AppRestController(UserService userService, UserProfileService userProfileService,
                              MessageSource messageSource) {
         this.userService = userService;
@@ -32,11 +32,6 @@ public class AppRestController {
     @GetMapping("/admin/api/list")
     public ResponseEntity<List<User>> getUserList() {
         return new ResponseEntity(userService.findAll(), HttpStatus.OK);
-    }
-
-    @GetMapping("/admin/api/rolelist")
-    public ResponseEntity<List<UserProfile>> getRoleList() {
-        return new ResponseEntity(userProfileService.findAll(), HttpStatus.OK);
     }
 
     @GetMapping("/admin/api/edit")

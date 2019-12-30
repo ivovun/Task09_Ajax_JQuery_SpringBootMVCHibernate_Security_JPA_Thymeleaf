@@ -15,7 +15,6 @@ public class AuthenticationSuccessHandlerImpl implements AuthenticationSuccessHa
                                         HttpServletResponse response, Authentication authentication)
             throws IOException {
 
-
         Set<String> authorities = AuthorityUtils.authorityListToSet(authentication.getAuthorities());
         if (authorities.contains("ROLE_ADMIN")) {
             response.sendRedirect("/admin/list");
