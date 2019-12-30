@@ -44,4 +44,10 @@ public class AppRestController {
         return new ResponseEntity<>(HttpStatus.OK);
     }
 
+    @DeleteMapping("/admin/api/delete/{ssoId}")
+    public ResponseEntity<Void> delete(@PathVariable String ssoId) {
+        userService.deleteUserBySsoId(ssoId);
+        return new ResponseEntity<>(HttpStatus.OK);
+    }
+
 }

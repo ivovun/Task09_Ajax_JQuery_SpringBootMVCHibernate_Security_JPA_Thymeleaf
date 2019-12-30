@@ -46,13 +46,6 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 
 		http.cors().and().csrf().disable().authorizeRequests().antMatchers("/**").permitAll();
 
-//		http.cors().and()
-//				.authorizeRequests()
-//				.antMatchers("/user").hasAnyRole("ADMIN", "USER", "DBA")
-//				.antMatchers("/admin/**").hasRole("ADMIN")
-//				.and().formLogin().loginPage("/login").loginProcessingUrl("/login").usernameParameter("ssoId").passwordParameter("password")
-//				.successHandler(authenticationSuccessHandler)
-//				.and().csrf().disable().and().exceptionHandling().accessDeniedPage("/Access_Denied");
 	}
 
 	@Bean

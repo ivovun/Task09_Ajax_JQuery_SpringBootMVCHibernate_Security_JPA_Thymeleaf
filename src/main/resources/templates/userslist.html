@@ -241,7 +241,16 @@
 
 
     $(document).ready(function () {
-        console.log("!!!!");
+
+        var currentdate = new Date();
+        var datetime = "Last Sync: " + currentdate.getDate() + "/"
+            + (currentdate.getMonth()+1)  + "/"
+            + currentdate.getFullYear() + " @ "
+            + currentdate.getHours() + ":"
+            + currentdate.getMinutes() + ":"
+            + currentdate.getSeconds();
+
+        console.log("DOCK RELOADED!!!!!"+datetime);
         $.getJSON('http://localhost:8080/admin/api/list', function (json) {
             var tr = [];
             for (var i = 0; i < json.length; i++) {
@@ -252,7 +261,7 @@
                 tr.push('<td>' + json[i].ssoId + '</td>');
                 tr.push('<td>' + json[i].password + '</td>');
                 tr.push('<td>' + json[i].email + '</td>');
-                tr.push('<td><button  data-id=' + json[i].id + '  class=\'userinfo\'>EDIT!!!</button>&nbsp;&nbsp;<button class=\'delete\' id=' + json[i].id + '>Delete</button></td>');
+                tr.push('<td><button  data-id=' + json[i].id + ' class=\'userinfo\'>EDIT!!!</button>&nbsp;&nbsp;<button class=\'delete\' id=' + json[i].ssoId + '>Delete</button></td>');
                 tr.push('</tr>');
             }
             $('table').append($(tr.join('')));
@@ -286,10 +295,76 @@
 
     });
 
+    $(document).delegate('.delete', 'click', function() {
+        if (confirm('Do you really want to delete record?')) {
+            var ssoId = $(this).attr('id');
+            var parent = $(this).parent().parent();
+            $.ajax({
+                type: "DELETE",
+                url: "http://localhost:8080/admin/api/delete/" + ssoId,
+                cache: false,
+                success: function() {
+                    parent.fadeOut('slow', function() {
+                        $(this).remove();
+                    });
+                    location.reload(true)
+                },
+                error: function() {
+                    $('#err').html('<span style=\'color:red; font-weight: bold; font-size: 30px;\'>Error deleting record').fadeIn().fadeOut(4000, function() {
+                        $(this).remove();
+                    });
+                }
+            });
+        }
+    });
+
     //{"id":5,"ssoId":"t","password":"$2a$10$vt.2A6inLAaswsuHlGIIXOSEOu7wmuWzP6wUQSMjIbWdbyZDfPJEa","firstName":null,"lastName":null,"email":"t",
     // "userProfiles":[{"id":3,"type":"DBA","authority":"ROLE_DBA"},{"id":2,"type":"ADMIN","authority":"ROLE_ADMIN"},{"id":1,"type":"USER","authority":"ROLE_USER"}],
     // "rolesDescription":"dba, admin, user","enabled":true,"username":"t","accountNonExpired":true,"accountNonLocked":true,"credentialsNonExpired":true,
     // "authorities":[{"id":3,"type":"DBA","authority":"ROLE_DBA"},{"id":2,"type":"ADMIN","authority":"ROLE_ADMIN"},{"id":1,"type":"USER","authority":"ROLE_USER"}]}
+
+    $(document).delegate('#addNew', 'click', function(event) {
+        event.preventDefault();
+
+        var ssoId = $('#ssoIdNew').val();
+        var email = $('#emailNew').val();
+        var password = $('#passwordNew').val();
+        console.log("ssoId = " + ssoIdNew);
+
+        var arrOfRoles = [];
+        if ($('#new1').is(":checked"))
+        {
+            arrOfRoles.push({"id":1,"type":"USER"});
+        }
+
+        if ($('#new2').is(":checked"))
+        {
+            arrOfRoles.push({"id":2,"type":"ADMIN"});
+        }
+
+        if ($('#new3').is(":checked"))
+        {
+            arrOfRoles.push({"id":3,"type":"DBA"});
+        }
+
+
+        console.log("ssoId = "+ssoId+" arrOfRoles = "+arrOfRoles);
+
+        $.ajax({
+            type: "POST",
+            contentType: "application/json; charset=utf-8",
+            url: "http://localhost:8080/admin/api/save",
+            data: JSON.stringify({ 'email':email, 'ssoId':ssoId, 'password':password, "userProfiles": arrOfRoles}),
+            cache: false,
+            success: function(result) {
+                $("#msg").html( "<span style='color: green'>User edit successfully</span>" );
+                window.setTimeout(function(){location.reload()},1000)
+            },
+            error: function(err) {
+                $("#msg").html( "<span style='color: red'>Name is required</span>" );
+            }
+        });
+    });
 
     $(document).delegate('.SaveAndClose', 'click', function(event) {
         event.preventDefault();
@@ -331,8 +406,6 @@
                 $("#msg").html( "<span style='color: red'>Name is required</span>" );
             }
         });
-
-
     });
 
 
@@ -347,7 +420,6 @@
                 // $(this).closest('li').addClass('active');
                 $(this).addClass('active');
                 //console.log("set active to " + this);
-
             }
         });
     });
