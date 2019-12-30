@@ -291,10 +291,9 @@
     // "rolesDescription":"dba, admin, user","enabled":true,"username":"t","accountNonExpired":true,"accountNonLocked":true,"credentialsNonExpired":true,
     // "authorities":[{"id":3,"type":"DBA","authority":"ROLE_DBA"},{"id":2,"type":"ADMIN","authority":"ROLE_ADMIN"},{"id":1,"type":"USER","authority":"ROLE_USER"}]}
 
-    $(document).delegate('#SaveAndClose', 'click', function(event) {
+    $(document).delegate('.SaveAndClose', 'click', function(event) {
         event.preventDefault();
 
-        console.log("$(document).delegate('.SaveAndClose', 'click', function(event)");
         var id       =  $('.edit_invisibleId').val();
         var email    =  $('.edit_email_class').val();
         var ssoId    =  $('.edit_ssoId_class').val();
@@ -316,6 +315,7 @@
             arrOfRoles.push({"id":3,"type":"DBA"});
         }
 
+        console.log("ssoId = "+ssoId+" arrOfRoles = "+arrOfRoles);
 
         $.ajax({
             type: "POST",
@@ -346,7 +346,7 @@
             if (path.substring(0, href.length) === href) {
                 // $(this).closest('li').addClass('active');
                 $(this).addClass('active');
-                console.log("set active to " + this);
+                //console.log("set active to " + this);
 
             }
         });
