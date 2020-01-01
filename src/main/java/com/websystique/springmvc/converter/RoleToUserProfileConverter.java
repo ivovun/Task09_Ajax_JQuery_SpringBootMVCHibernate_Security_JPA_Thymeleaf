@@ -16,6 +16,7 @@ import com.websystique.springmvc.service.UserProfileService;
 public class RoleToUserProfileConverter implements Converter<Object, UserProfile>{
 	private UserProfileService userProfileService;
 
+	@Autowired
 	public RoleToUserProfileConverter(UserProfileService userProfileService) {
 		this.userProfileService = userProfileService;
 	}

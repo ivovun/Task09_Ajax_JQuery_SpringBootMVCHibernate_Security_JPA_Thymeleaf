@@ -15,9 +15,9 @@ import com.websystique.springmvc.converter.RoleToUserProfileConverter;
  *To customize the imported configuration, implement the interface WebMvcConfigurer and override individual methods
  *  addFormatters, addResourceHandlers
  */
-@Configuration
-@EnableWebMvc
-@ComponentScan(basePackages = "com.websystique.springmvc")
+//@Configuration
+//@EnableWebMvc
+//@ComponentScan(basePackages = "com.websystique.springmvc")
 public class AppConfig implements WebMvcConfigurer {
 	private RoleToUserProfileConverter roleToUserProfileConverter;
 
